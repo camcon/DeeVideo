@@ -23,9 +23,16 @@ conn,addr=s.accept()
 data = ""
 payload_size = struct.calcsize("L")
 data = conn.recv(4096)
+count = 0
 while True:
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        cap.release()
+        cv2.destroyAllWindows()
+        sys.exit(0)
     while len(data) < payload_size:
         data += conn.recv(4096)
+    #count += 1
+    #print "Recieved packet "+str(count)
     packed_msg_size = data[:payload_size]
     data = data[payload_size:]
     msg_size = struct.unpack("L", packed_msg_size)[0]
