@@ -59,14 +59,12 @@ print 'Socket bind complete'
 # UDP:
 print 'Socket bind complete'
 ### new
-data = ""
-
+s = ""
 while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        cap.release()
         cv2.destroyAllWindows()
         sys.exit(0)
-    s = ""
+    
 
 ##    while len(data) < payload_size:
 ##        data += conn.recv(4096)
@@ -74,15 +72,15 @@ while True:
 ##    #print "Recieved packet "+str(count)
 ##    packed_msg_size = data[:payload_size]
 ##    data = data[payload_size:]
-    data, addr = sock.recvfrom(48000)
+    data, addr = sock.recvfrom(46080)
     s += data
-    if len(s) == (48000*20):
+    if len(s) == (46080*20):
         frame = np.fromstring(s, dtype=np.uint8)
-        print frame
-       # frame = frame.reshape(480,640,3)
-        s = ""
+        #print frame
+        frame = frame.reshape(480,640,3)
+        
         cv2.imshow('frame',frame)
-
+        s = ""
    # msg_size = struct.unpack("L", packed_msg_size)[0]
     
 

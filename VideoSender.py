@@ -9,12 +9,12 @@ IP = "localhost"
 PORT = 8080
 
 # Not sure why video isn't showing up
-
+print "Starting capture"
 cap=cv2.VideoCapture(0)
 ##cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 4)
 ##cap.set(cv2.CAP_PROP_FRAME_WIDTH, 4)
-##print cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-##print cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+#print cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+#print cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 clientsocket=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 #clientsocket.connect(('localhost',8080))
 while True:
@@ -26,15 +26,9 @@ while True:
     # UDP:
     ret,frame=cap.read()
     d = frame.flatten()
-    dat1 = sys.getsizeof(frame)
-    dat2 = sys.getsizeof(d)
     s = d.tostring()
-    dat3 = sys.getsizeof(s)
-    print dat1
-    print dat2
-    print "Dat3: "+str(dat3)
     for i in xrange(20):
-        clientsocket.sendto(s[i*48000:(i+1)*48000],(IP, PORT))
+        clientsocket.sendto(s[i*46080:(i+1)*46080],(IP, PORT))
     #data = pickle.dumps(frame) ### new code
     #dataSize = sys.getsizeof(data)
     #print dataSize
